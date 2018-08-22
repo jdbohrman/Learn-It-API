@@ -7,6 +7,10 @@ include a .env file with the following variables
 ```
 port = ####
 ```
+install dependencies
+```
+npm i(nstall)
+```
 
 # Tests
 to run tests execute the following command

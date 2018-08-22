@@ -19,6 +19,6 @@
     "mocha": "^5.2.0"
   },
   "scripts": {
-    "test": "set  NODE_ENV=test&& mocha --timeout 10000 --exit"
+    "test": "set NODE_ENV=test&& set PORT=6666&& mocha --timeout 10000 --exit"
   }
 }

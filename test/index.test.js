@@ -14,6 +14,22 @@ describe('Junk Test', () => {
   })
 })
 
+describe('/GET subjects', () => {
+  it('Should get a list of subjects.', (done) => {
+    chai.request(server)
+      .get('/subjects')
+      .end((err, res) => {
+        res.should.have.status(200)
+        res.body.should.be.a('array')
+        res.body.length.should.be.above(0);
+        res.body[0].should.have.property('title')
+        res.body[0].should.have.property('id')
+        res.body[0].should.have.property('subTitle')
+        done()
+      })
+  })
+})
+
 describe('/GET health', () => {
   it('Should GET health response.', (done) => {
     chai.request(server)
