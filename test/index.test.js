@@ -8,9 +8,34 @@ const server = require('../index')
 
 chai.use(chaiHttp)
 
-describe('Junk Test', () => {
-  it('True should be true.', () => {
-    expect(true).to.be.true
+describe('/GET users', () => {
+  it('Should get a list of users.', (done) => {
+    chai.request(server)
+      .get('/user')
+      .end((err, res) => {
+        res.should.have.status(200)
+        res.body.should.be.a('array')
+        res.body.length.should.be.above(0)
+        res.body[0].should.have.property('id')
+        res.body[0].should.have.property('username')
+        done()
+      })
+  })
+})
+
+describe('/GET lesson', () => {
+  it('Should get a list of lessons.', (done) => {
+    chai.request(server)
+      .get('/lesson')
+      .end((err, res) => {
+        res.should.have.status(200)
+        res.body.should.be.a('array')
+        res.body.length.should.be.above(0)
+        res.body[0].should.have.property('id')
+        res.body[0].should.have.property('title')
+        res.body[0].should.have.property('content')
+        done()
+      })
   })
 })
 

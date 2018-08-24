@@ -9,8 +9,13 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
 app.use(bodyParser.json({ type: 'application/json'}))
 
-const subjects = require('./routes/subjects')(express)
-app.use('/subjects', subjects)
+const subjectRoute = require('./routes/subject')(express)
+const userRoute = require('./routes/user')(express)
+const lessonRoute = require('./routes/lesson')(express)
+
+app.use('/subjects', subjectRoute)
+app.use('/user', userRoute)
+app.use('/lesson', lessonRoute)
 
 app.get('/health', (req, res)=> res.send('Server is running.'))
 
