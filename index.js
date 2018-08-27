@@ -15,6 +15,7 @@ const lessonRoute = require('./routes/lesson')(express)
 const cardRoute = require('./routes/card')(express)
 const deckRoute = require('./routes/deck')(express)
 const questionRoute = require('./routes/question')(express)
+const answerRoute = require('./routes/answer')(express)
 
 app.use('/subjects', subjectRoute)
 app.use('/user', userRoute)
@@ -22,6 +23,7 @@ app.use('/lesson', lessonRoute)
 app.use('/card', cardRoute)
 app.use('/deck', deckRoute)
 app.use('/question', questionRoute)
+app.use('/answer', answerRoute)
 
 app.get('/health', (req, res)=> res.send('Server is running.'))
 
