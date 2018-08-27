@@ -13,11 +13,13 @@ const subjectRoute = require('./routes/subject')(express)
 const userRoute = require('./routes/user')(express)
 const lessonRoute = require('./routes/lesson')(express)
 const cardRoute = require('./routes/card')(express)
+const deckRoute = require('./routes/deck')(express)
 
 app.use('/subjects', subjectRoute)
 app.use('/user', userRoute)
 app.use('/lesson', lessonRoute)
 app.use('/card', cardRoute)
+app.use('/deck', deckRoute)
 
 app.get('/health', (req, res)=> res.send('Server is running.'))
 

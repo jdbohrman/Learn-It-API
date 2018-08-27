@@ -8,6 +8,21 @@ const server = require('../index')
 
 chai.use(chaiHttp)
 
+describe('/GET decks', () => {
+  it('Should get a list of decks.', (done) => {
+    chai.request(server)
+      .get('/deck')
+      .end((err, res) => {
+        res.should.have.status(200)
+        res.body.should.be.a('array')
+        res.body.length.should.be.above(0)
+        res.body[0].should.have.property('id')
+        res.body[0].should.have.property('cards')
+        done()
+      })
+  })
+})
+
 describe('/GET cards', () => {
   it('Should get a list of cards.', (done) => {
     chai.request(server)
