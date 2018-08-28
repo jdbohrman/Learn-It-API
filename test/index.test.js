@@ -8,6 +8,21 @@ const server = require('../index')
 
 chai.use(chaiHttp)
 
+describe('/GET explanations', () => {
+  it('Should get a list of explanations.', (done) => {
+    chai.request(server)
+      .get('/explanation')
+      .end((err, res) => {
+        res.should.have.status(200)
+        res.body.should.be.a('array')
+        res.body.length.should.be.above(0)
+        res.body[0].should.have.property('id')
+        res.body[0].should.have.property('explanation')
+        done()
+      })
+  })
+})
+
 describe('/GET answers', () => {
   it('Should get a list of answers.', (done) => {
     chai.request(server)
