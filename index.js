@@ -17,6 +17,7 @@ const deckRoute = require('./routes/deck')(express)
 const questionRoute = require('./routes/question')(express)
 const answerRoute = require('./routes/answer')(express)
 const explanationRoute = require('./routes/explanation')(express)
+const multipleChoiceRoute = require('./routes/multipleChoice')(express)
 
 app.use('/subjects', subjectRoute)
 app.use('/user', userRoute)
@@ -26,6 +27,7 @@ app.use('/deck', deckRoute)
 app.use('/question', questionRoute)
 app.use('/answer', answerRoute)
 app.use('/explanation', explanationRoute)
+app.use('/multipleChoice', multipleChoiceRoute)
 
 app.get('/health', (req, res)=> res.send('Server is running.'))
 

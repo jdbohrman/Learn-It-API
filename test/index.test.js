@@ -8,6 +8,23 @@ const server = require('../index')
 
 chai.use(chaiHttp)
 
+describe('/GET multipleChoice', () => {
+  it('Should get a list of multiple choice questions.', (done) => {
+    chai.request(server)
+      .get('/multipleChoice')
+      .end((err, res) => {
+        res.should.have.status(200)
+        res.body.should.be.a('array')
+        res.body.length.should.be.above(0)
+        res.body[0].should.have.property('id')
+        res.body[0].should.have.property('questions') // array
+        res.body[0].should.have.property('answers') // array
+        res.body[0].should.have.property('explanations') // array
+        done()
+      })
+  })
+})
+
 describe('/GET explanations', () => {
   it('Should get a list of explanations.', (done) => {
     chai.request(server)
