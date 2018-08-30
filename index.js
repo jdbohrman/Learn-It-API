@@ -19,6 +19,7 @@ const answerRoute = require('./routes/answer')(express)
 const explanationRoute = require('./routes/explanation')(express)
 const multipleChoiceRoute = require('./routes/multipleChoice')(express)
 const quizRoute = require('./routes/quiz')(express)
+const slideRoute = require('./routes/slide')(express)
 
 app.use('/subjects', subjectRoute)
 app.use('/user', userRoute)
@@ -30,6 +31,7 @@ app.use('/answer', answerRoute)
 app.use('/explanation', explanationRoute)
 app.use('/multipleChoice', multipleChoiceRoute)
 app.use('/quiz', quizRoute)
+app.use('/slide', slideRoute)
 
 app.get('/health', (req, res)=> res.send('Server is running.'))
 
