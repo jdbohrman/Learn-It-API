@@ -21,6 +21,7 @@ const multipleChoiceRoute = require('./routes/multipleChoice')(express)
 const quizRoute = require('./routes/quiz')(express)
 const slideRoute = require('./routes/slide')(express)
 const presentationRoute = require('./routes/presentation')(express)
+const notFoundRoute = require('./routes/notFound')
 
 app.use('/subjects', subjectRoute)
 app.use('/user', userRoute)
@@ -36,6 +37,8 @@ app.use('/slide', slideRoute)
 app.use('/presentation', presentationRoute)
 
 app.get('/health', (req, res)=> res.send('Server is running.'))
+
+app.use(notFoundRoute)
 
 app.listen(port, () => console.log('Learn It API running on', port))
 
