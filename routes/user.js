@@ -1,3 +1,5 @@
+const logging = require('../middleWare/logging')
+
 let users = [
   {
     username: 'oldGuy',
@@ -6,7 +8,10 @@ let users = [
 ]
 
 module.exports = function(express){
+
   let userRouter = express.Router()
+
+  userRouter.use(logging)
 
   userRouter.post('/signup', function(req, res){
     var username = req.body.username
