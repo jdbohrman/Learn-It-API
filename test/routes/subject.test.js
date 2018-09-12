@@ -8,16 +8,21 @@ const server = require('../..')
 
 chai.use(chaiHttp)
 
-describe('/GET slide', () => {
-  it('Should get a list of slides.', (done) => {
+// get a specific subject
+// add a subject
+// check if subject name exists
+
+describe('/GET subject', () => {
+  it('Should get a list of subjects.', (done) => {
     chai.request(server)
-      .get('/slide')
+      .get('/subjects')
       .end((err, res) => {
         res.should.have.status(200)
         res.body.should.be.a('array')
         res.body.length.should.be.above(0)
         res.body[0].should.have.property('id')
-        res.body[0].should.have.property('content')
+        res.body[0].should.have.property('title')
+        res.body[0].should.have.property('subTitle')
         done()
       })
   })

@@ -8,6 +8,10 @@ const server = require('../..')
 
 chai.use(chaiHttp)
 
+// get a specific lesson
+// add a lesson
+// check if lesson name exists
+
 describe('/GET lesson', () => {
   it('Should get a list of lessons.', (done) => {
     chai.request(server)

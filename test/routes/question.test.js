@@ -8,6 +8,10 @@ const server = require('../..')
 
 chai.use(chaiHttp)
 
+// get a specific question
+// add a question
+// check if question name exists
+
 describe('/GET questions', () => {
   it('Should get a list of questions.', (done) => {
     chai.request(server)

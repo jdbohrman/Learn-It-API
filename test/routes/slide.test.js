@@ -8,6 +8,10 @@ const server = require('../..')
 
 chai.use(chaiHttp)
 
+// get a specific slide
+// add a slide
+// check if slide name exists
+
 describe('/GET slide', () => {
   it('Should get a list of slides.', (done) => {
     chai.request(server)
