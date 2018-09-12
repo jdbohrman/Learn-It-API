@@ -8,6 +8,9 @@ const server = require('../..')
 
 chai.use(chaiHttp)
 
+// signin
+// update information
+
 describe('/GET users', () => {
   it('Should get a list of users.', (done) => {
     chai.request(server)

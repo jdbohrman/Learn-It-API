@@ -8,6 +8,10 @@ const server = require('../..')
 
 chai.use(chaiHttp)
 
+// get specific card
+// add a card
+// check if card exists
+
 describe('/GET cards', () => {
   it('Should get a list of cards.', (done) => {
     chai.request(server)

@@ -8,6 +8,10 @@ const server = require('../..')
 
 chai.use(chaiHttp)
 
+// get a specific explanation
+// add a explanation
+// check if explanation name exists
+
 describe('/GET explanations', () => {
   it('Should get a list of explanations.', (done) => {
     chai.request(server)

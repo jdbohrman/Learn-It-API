@@ -8,6 +8,10 @@ const server = require('../..')
 
 chai.use(chaiHttp)
 
+// get a specific multiple choice question
+// add a multiple choice question
+// check if multiple choice question name exists
+
 describe('/GET multipleChoice', () => {
   it('Should get a list of multiple choice questions.', (done) => {
     chai.request(server)

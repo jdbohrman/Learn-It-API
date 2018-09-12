@@ -8,6 +8,10 @@ const server = require('../..')
 
 chai.use(chaiHttp)
 
+// get a specific presentation
+// add a presentation
+// check if presentation name exists
+
 describe('/GET presentation', () => {
   it('Should get a list of presentations.', (done) => {
     chai.request(server)
