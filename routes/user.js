@@ -26,7 +26,7 @@ module.exports = function(express){
       })
     } else {
       res
-        .status(500)
+        .status(400)
         .json({
           message: 'Signup Failed. User already exists.',
           success: false
