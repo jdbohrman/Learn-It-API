@@ -58,7 +58,7 @@ describe('/Post users/signup', () => {
       .send(oldUser)
       .end((err, res) => {
         let body = res.body
-        res.should.have.status(500)
+        res.should.have.status(400)
         res.body.should.be.a('object')
         res.body.should.have.property('message')
         body.message.should.equal('Signup Failed. User already exists.')
