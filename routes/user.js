@@ -35,9 +35,32 @@ module.exports = function(express){
   })
 
   // sign in post
-  // sign out(just remove token on front end?)
-  // update user info
+  userRouter.post('/signin', function(req, res){
+    var username = req.body.username
+    var password = req.body.password
+    var credentialsCorrect = users.find(user => user.username == username && user.password == password)
+    if(credentialsCorrect == undefined){
+      res
+        .status(401)
+        .json({
+          message: 'Username or password was incorrect.',
+          success: false
+        })
+    } else {
+      res
+        .status(200)
+        .json({
+          message: 'User logged in.',
+          success: true
+          // include jwt?
+        })
+    }
+  })
 
+  // sign out(just remove token on front end?)
+  
+  // restrict to authorized user
+  // update user info
   userRouter.get('/', function(req, res) {
     res.json([
       {id:1, username: 'a@b.com'},
