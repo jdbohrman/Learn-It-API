@@ -8,7 +8,15 @@ const server = require('../..')
 
 chai.use(chaiHttp)
 
-// signin
+let newUser = {
+  username: 'newGuy',
+  password: 'Password!23'
+}
+let oldUser = {
+  username: 'oldGuy',
+  password: 'Password!23'
+}
+
 // update information
 
 describe('/GET users', () => {
@@ -26,12 +34,43 @@ describe('/GET users', () => {
   })
 })
 
+describe('/POST users/signin', () => {
+
+  it('Should log in an existing user.', (done) => {
+    chai.request(server)
+      .post('/user/signin')
+      .send(oldUser)
+      .end((err, res) => {
+        res.should.have.status(200)
+        res.body.should.be.a('object')
+        res.body.should.have.property('message')
+        res.body.should.have.property('success')
+        let body = res.body
+        body.message.should.equal('User logged in.')
+        body.success.should.equal(true)
+        // check for jwt
+        done()
+      })
+  })
+  it('Should not log in a user with the wrong credentials', (done) => {
+    chai.request(server)
+      .post('/user/signin')
+      .send(newUser)
+      .end((err, res) => {
+        res.should.have.status(401)
+        res.body.should.be.a('object')
+        let body = res.body
+        body.should.have.property('message')
+        body.should.have.property('success')
+        body.message.should.equal('Username or password was incorrect.')
+        body.success.should.equal(false)
+        done()
+      })
+  })
+})
+
 describe('/Post users/signup', () => {
   it('Should add a new user if they do not exist.', (done) => {
-    let newUser = {
-      username: 'newGuy',
-      password: 'Password!23'
-    }
     chai.request(server)
       .post('/user/signup')
       .send(newUser)
