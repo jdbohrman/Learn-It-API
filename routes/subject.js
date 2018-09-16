@@ -18,10 +18,8 @@ module.exports = function(express){
       title: req.body.title,
       subTitle: req.body.subTitle
     }
-    console.log(newSubject)
     // search for exsiting subject.
     let subjectExists = subjects.find(subject => subject.title === newSubject.title || subject.subTitle === newSubject.subTitle)
-    console.log(subjectExists)
     if(subjectExists === undefined){
       // add new
       subjects.push(newSubject)
@@ -34,6 +32,12 @@ module.exports = function(express){
         })
     } else {
       // return error
+      res
+        .status(400)
+        .json({
+          message: 'Subject exists.',
+          success: false
+        })
     }
   })
   return subjectRouter
