@@ -29,7 +29,6 @@ describe('/PUT users/:id', () => {
       .send(oldUserUpdate)
       .end((err, res) => {
         res.should.have.status(200)
-        console.log('body', res.body)
         res.body.should.be.a('object')
         res.body.should.have.property('message')
         res.body.should.have.property('success')

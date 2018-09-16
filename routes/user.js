@@ -63,14 +63,9 @@ module.exports = function(express){
   // update user info
   userRouter.put('/:id', function(req, res) {
     let id = req.params.id
-    console.log('id', id)
-    console.log('body', req.body)
     let newUserInfo = { username: req.body.username, password: req.body.password }
-    console.log('new info', newUserInfo)
     let foundUser = users.find(user => user.username == newUserInfo.username)
-    console.log('found', foundUser)
     if(foundUser == undefined){
-      console.log('no find')
       res
         .status(400)
         .json({
@@ -79,7 +74,6 @@ module.exports = function(express){
         })
     } else {
       // update user info
-      console.log('find')
       res
         .status(200)
         .json({
@@ -89,6 +83,10 @@ module.exports = function(express){
         })
     }
   })
+
+  // ToDo: Get a single user by id
+
+  // ToDo: Get a single user by username
 
   userRouter.get('/', function(req, res) {
     res.json([
