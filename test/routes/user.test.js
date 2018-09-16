@@ -16,8 +16,44 @@ let oldUser = {
   username: 'oldGuy',
   password: 'Password!23'
 }
+let oldUserUpdate = {
+  username: 'oldGuy',
+  password: 'NewPassword!!!'
+}
 
 // update information
+describe('/PUT users/:id', () => {
+  it('Should update a user.', (done) => {
+    chai.request(server)
+      .put('/user/1')
+      .send(oldUserUpdate)
+      .end((err, res) => {
+        res.should.have.status(200)
+        console.log('body', res.body)
+        res.body.should.be.a('object')
+        res.body.should.have.property('message')
+        res.body.should.have.property('success')
+        res.body.message.should.equal('Updated user info.')
+        res.body.success.should.equal(true)
+        // return updated object?
+        done()
+      })
+  })
+  it('Should return an error if user is not found.', (done) => {
+    chai.request(server)
+      .put('/user/2')
+      .send({username: 'someOtherGuy', password: 'asdfasdf'})
+      .end((err, res) => {
+        res.should.have.status(400)
+        res.body.should.be.a('object')
+        res.body.should.have.property('message')
+        res.body.should.have.property('success')
+        res.body.message.should.equal('User not found.')
+        res.body.success.should.equal(false)
+        done()
+      })
+  })
+})
 
 describe('/GET users', () => {
   it('Should get a list of users.', (done) => {
