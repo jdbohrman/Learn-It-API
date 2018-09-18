@@ -12,6 +12,26 @@ module.exports = function(express){
   })
 
   // restrict to authorized users
+  subjectRouter.get('/:id', function(req, res) {
+    let id = req.params.id
+    let foundSubject = subjects.find(subject => subject.id == id)
+    if(foundSubject === undefined){
+      res
+        .status(400)
+        .json({
+          message: 'Subject with that ID not found.',
+          success: false
+        })
+    } else {
+      res
+        .status(200)
+        .json({
+          message: 'Found subject.',
+          success: true,
+          content: foundSubject
+        })
+    }
+  })
 
   subjectRouter.post('/', function(req, res) {
     let newSubject = {
