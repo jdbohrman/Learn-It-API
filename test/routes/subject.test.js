@@ -47,7 +47,9 @@ describe('/POST add a subject', () => {
   })
 })
 
+// get subjects or subject
 describe('/GET subject', () => {
+
   it('Should get a list of subjects.', (done) => {
     chai.request(server)
       .get('/subjects')
@@ -58,6 +60,38 @@ describe('/GET subject', () => {
         res.body[0].should.have.property('id')
         res.body[0].should.have.property('title')
         res.body[0].should.have.property('subTitle')
+        done()
+      })
+  })
+
+  it('Should get a subject by Id', (done) => {
+    chai.request(server)
+      .get('/subjects/1')
+      .end((err, res) => {
+        res.should.have.status(200)
+        res.body.should.be.a('object')
+        res.body.should.have.property('message')
+        res.body.message.should.equal('Found subject.')
+        res.body.should.have.property('success')
+        res.body.success.should.equal(true)
+        res.body.should.have.property('content')
+        res.body.content.should.be.a('object')
+        res.body.content.should.have.property('title')
+        res.body.content.should.have.property('subTitle')
+        done()
+      })
+  })
+
+  it('Should not find a subject for an Id that does not exist.', (done) => {
+    chai.request(server)
+      .get('/subjects/q')
+      .end((err, res) => {
+        res.should.have.status(400)
+        res.body.should.be.a('object')
+        res.body.should.have.property('message')
+        res.body.should.have.property('success')
+        res.body.message.should.equal('Subject with that ID not found.')
+        res.body.success.should.equal(false)
         done()
       })
   })
