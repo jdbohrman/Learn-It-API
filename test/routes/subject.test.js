@@ -57,7 +57,7 @@ describe('/GET subject', () => {
         res.should.have.status(200)
         res.body.should.be.a('array')
         res.body.length.should.be.above(0)
-        res.body[0].should.have.property('id')
+        res.body[0].should.have.property('_id')
         res.body[0].should.have.property('title')
         res.body[0].should.have.property('subTitle')
         done()

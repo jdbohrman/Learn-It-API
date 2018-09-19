@@ -3,6 +3,11 @@ const port = process.env.PORT
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
+const mongoose = require('mongoose')
+const dbUser = process.env.DB_USER
+const dbPass = process.env.DB_PASS
+const dbAddress = process.env.DB_ADDRESS
+mongoose.connect(`mongodb://${dbUser}:${dbPass}@${dbAddress}`, {useNewUrlParser: true})
 
 app.use(bodyParser.text())
 app.use(bodyParser.urlencoded({extended: true}))

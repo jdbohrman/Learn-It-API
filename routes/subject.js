@@ -1,3 +1,5 @@
+const Subject = require('../models/subject')
+
 let subjects = [
   {id: 1, title: 'one', subTitle: '1'},
   {id: 2, title: 'two', subTitle: '2'},
@@ -8,7 +10,11 @@ module.exports = function(express){
   let subjectRouter = express.Router()
 
   subjectRouter.get('/', function(req, res) {
-    res.json(subjects)
+    Subject.find({}, (err, subjects) => {
+      console.log(subjects)
+      res.json(subjects)
+    })
+    // res.json(subjects)
   })
 
   // restrict to authorized users
@@ -34,31 +40,37 @@ module.exports = function(express){
   })
 
   subjectRouter.post('/', function(req, res) {
+    console.log('req', req.body)
     let newSubject = {
       title: req.body.title,
       subTitle: req.body.subTitle
     }
-    // search for exsiting subject.
-    let subjectExists = subjects.find(subject => subject.title === newSubject.title || subject.subTitle === newSubject.subTitle)
-    if(subjectExists === undefined){
-      // add new
-      subjects.push(newSubject)
-      res
-        .status(200)
-        .json({
-          message: 'New subject added.',
-          success: true,
-          content: newSubject
+    Subject.findOne({title: newSubject.title}, (err, subject) => {
+      if(!subject){
+        let subjectToAdd = new Subject(newSubject)
+        subjectToAdd.save((err, subject)=> {
+          if(err){
+            res.json({
+              message: 'Error adding new subject.',
+              success: false,
+              content: err
+            })
+          } else {
+            res.json({
+              message: 'New subject added.',
+              success: true,
+              content: subject
+            })
+          }
         })
-    } else {
-      // return error
-      res
-        .status(400)
-        .json({
+      } else {
+        res.json({
           message: 'Subject exists.',
-          success: false
+          success: false,
+          content: subject
         })
-    }
+      }
+    })
   })
   return subjectRouter
 }
