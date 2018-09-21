@@ -3,9 +3,9 @@ module.exports = function(express){
 
   slideRouter.get('/', function(req, res) {
     res.json([
-      {id:1, content: ''},
-      {id:2, content: ''},
-      {id:3, content: ''}
+      {id:1, title: '', content: ''},
+      {id:2, title: '', content: ''},
+      {id:3, title: '', content: ''}
     ])
   })
 

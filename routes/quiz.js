@@ -3,9 +3,9 @@ module.exports = function(express){
 
   quizRouter.get('/', function(req, res) {
     res.json([
-      {id:1, questions: []},
-      {id:2, questions: []},
-      {id:3, questions: []}
+      {id:1, title: '', questions: []},
+      {id:2, title: '', questions: []},
+      {id:3, title: '', questions: []}
     ])
   })
 

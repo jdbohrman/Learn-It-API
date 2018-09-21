@@ -3,9 +3,9 @@ module.exports = function(express){
 
   presentationRouter.get('/', function(req, res) {
     res.json([
-      {id:1, slides: ''},
-      {id:2, slides: ''},
-      {id:3, slides: ''}
+      {id:1, title: '', slides: ''},
+      {id:2, title: '', slides: ''},
+      {id:3, title: '', slides: ''}
     ])
   })
 
