@@ -11,10 +11,10 @@ module.exports = function(express){
 
   subjectRouter.get('/', function(req, res) {
     Subject.find({}, (err, subjects) => {
-      console.log(subjects)
-      res.json(subjects)
+      res
+        .status(200)
+        .json(subjects)
     })
-    // res.json(subjects)
   })
 
   // restrict to authorized users
@@ -40,7 +40,6 @@ module.exports = function(express){
   })
 
   subjectRouter.post('/', function(req, res) {
-    console.log('req', req.body)
     let newSubject = {
       title: req.body.title,
       subTitle: req.body.subTitle
@@ -50,25 +49,31 @@ module.exports = function(express){
         let subjectToAdd = new Subject(newSubject)
         subjectToAdd.save((err, subject)=> {
           if(err){
-            res.json({
-              message: 'Error adding new subject.',
-              success: false,
-              content: err
-            })
+            res
+              .status(400)
+              .json({
+                message: 'Error adding new subject.',
+                success: false,
+                content: err
+              })
           } else {
-            res.json({
-              message: 'New subject added.',
-              success: true,
-              content: subject
-            })
+            res
+              .status(200)  
+              .json({
+                message: 'New subject added.',
+                success: true,
+                content: subject
+              })
           }
         })
       } else {
-        res.json({
-          message: 'Subject exists.',
-          success: false,
-          content: subject
-        })
+        res
+          .status(400)
+          .json({
+            message: 'Subject exists.',
+            success: false,
+            content: subject
+          })
       }
     })
   })

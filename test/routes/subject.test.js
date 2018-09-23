@@ -1,10 +1,23 @@
+require('dotenv').config()
 process.env.NODE_ENV = 'test'
-
 const chai = require('chai')
 const expect = chai.expect
 const should = chai.should()
 const chaiHttp = require('chai-http')
 const server = require('../..')
+const mongoose = require('mongoose')
+const dbUser = process.env.DB_USER
+const dbPass = process.env.DB_PASS
+const dbAddress = process.env.DB_ADDRESS
+
+mongoose.connect(`mongodb://${dbUser}:${dbPass}@${dbAddress}`, {useNewUrlParser: true})
+mongoose.connection.collections['subjects'].drop('subjects', function(err, result){
+  if(err !== null)
+    console.log('err', err)
+  
+  if(result !== true)
+    console.log('res', result)
+})
 
 let newSubject = {title: 'New Subject', subTitle: 'New SubTitle'}
 let oldSubject = {title: 'one', subTitle: '1'}
@@ -28,14 +41,18 @@ describe('/POST add a subject', () => {
         res.body.should.have.property('success')
         res.body.success.should.be.equal(true)
         res.body.should.have.property('content')
-        res.body.content.should.be.deep.equal(newSubject)
+        res.body.content.should.have.property('_id')
+        res.body.content.should.have.property('title')
+        res.body.content.should.have.property('subTitle')
+        res.body.content.title.should.be.equal('New Subject')
+        res.body.content.subTitle.should.be.equal('New SubTitle')
         done()
       })
   })
   it('Should not add an existing subject.', (done) => {
     chai.request(server)
       .post('/subjects')
-      .send(oldSubject)
+      .send(newSubject)
       .end((err, res) => {
         res.should.have.status(400)
         res.body.should.have.property('message')
